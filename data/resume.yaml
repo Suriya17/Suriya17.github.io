@@ -1,0 +1,70 @@
+name: Surya Addanki
+email: suryateja836@gmail.com
+github: https://github.com/Suriya17
+
+experience:
+  - title: Software Engineer — Arista Networks
+    date: Jan 2021 – present
+    location: Santa Clara, CA
+    bullets:
+      - Build and maintain a library that abstracts the difficult parts of programming Switch ASICs.
+      - Coordinate across feature teams to design a uniform interface for multiple generations of Switch ASICs.
+      - Work on the Arista 7050/7060 product line.
+
+  - title: Research Intern — Adobe, Big Data Labs
+    date: Summer 2018
+    location: Bangalore, India
+    bullets:
+      - Studied blockchain applications and built an Ethereum app using Truffle and webpack.
+      - Deployed the application on the Ethereum testnet.
+
+education:
+  - title: M.S. Computer Science — UCLA
+    date: Dec 2020
+    sub: "Specialization in Systems · GPA 3.9/4.0"
+
+  - title: B.Tech Computer Science — IIT Kharagpur
+    date: Jul 2019
+    sub: "CGPA 9.3/10.0"
+
+publications:
+  - title: "Prio+: Privacy-Preserving Aggregate Statistics"
+    url: https://link.springer.com/chapter/10.1007/978-3-031-14791-3_23
+    date: "2022"
+    sub: International Conference on Security and Cryptography for Networks (SCN)
+    bullets:
+      - Two-server system for collecting aggregate statistics (average, variance, max, min) without learning individual user data.
+
+projects:
+  - title: Scalable Set Difference Tool
+    url: https://github.com/satyaprakash-1729/ScalableSetDiff
+    date: Spring 2020
+    bullets:
+      - Invertible bloom filter in C/C++ for computing set differences in memory-scarce settings with sub-linear space.
+
+  - title: Blogging Website with Markdown Support
+    date: Spring 2020
+    bullets:
+      - Full-stack blog with Node.js, MongoDB, Express, and Angular. Supports Markdown, login, and session-cookie auth.
+
+  - title: TinyPubSub
+    url: https://github.com/ghoshbishakh/tinypubsub
+    date: Spring 2019
+    bullets:
+      - Publish-subscribe system inspired by Apache Kafka with replication, load balancing, and leader election.
+
+  - title: TCP over UDP
+    date: Spring 2018
+    bullets:
+      - Transport wrapper over UDP implementing reliable delivery, flow control, and congestion control (slow start, fast recovery, fast retransmit).
+
+skills:
+  - label: Languages
+    items: "C, C++, Python, Go, Java, JavaScript"
+  - label: Technologies
+    items: "TCP/IP, Distributed Systems, CMake, GDB, Angular, Express, MongoDB, Node.js, OpenCL, OpenMP, MPI, Xilinx Vitis"
+
+awards:
+  - 49th of 3,282 teams — ACM ICPC India Qualifiers 2018
+  - 83rd — ACM ICPC 2018, Amritapuri Regionals
+  - All India Rank 286 — JEE Advanced 2015 (150,000 applicants)

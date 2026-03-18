@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{{ .Site.Title }}</title>
+  <link rel="stylesheet" href="/style.css" />
+</head>
+<body>
+  {{ $r := .Site.Data.resume }}
+  <main>
+    <header>
+      <h1>{{ $r.name }}</h1>
+      <div class="contact">
+        <a href="mailto:{{ $r.email }}">{{ $r.email }}</a>
+        <span class="sep">·</span>
+        <a href="{{ $r.github }}" target="_blank" rel="noopener">GitHub</a>
+      </div>
+    </header>
+
+    <section>
+      <h2>Experience</h2>
+      {{ range $r.experience }}
+      <div class="entry">
+        <div class="entry-header">
+          <span class="entry-title">{{ .title }}</span>
+          <span class="entry-date">{{ .date }}</span>
+        </div>
+        <div class="entry-sub">{{ .location }}</div>
+        <ul>
+          {{ range .bullets }}<li>{{ . }}</li>{{ end }}
+        </ul>
+      </div>
+      {{ end }}
+    </section>
+
+    <section>
+      <h2>Education</h2>
+      {{ range $r.education }}
+      <div class="entry">
+        <div class="entry-header">
+          <span class="entry-title">{{ .title }}</span>
+          <span class="entry-date">{{ .date }}</span>
+        </div>
+        <div class="entry-sub">{{ .sub }}</div>
+      </div>
+      {{ end }}
+    </section>
+
+    <section>
+      <h2>Publications</h2>
+      {{ range $r.publications }}
+      <div class="entry">
+        <div class="entry-header">
+          {{ if .url }}
+          <a class="entry-title" href="{{ .url }}" target="_blank" rel="noopener">{{ .title }}</a>
+          {{ else }}
+          <span class="entry-title">{{ .title }}</span>
+          {{ end }}
+          <span class="entry-date">{{ .date }}</span>
+        </div>
+        <div class="entry-sub">{{ .sub }}</div>
+        <ul>
+          {{ range .bullets }}<li>{{ . }}</li>{{ end }}
+        </ul>
+      </div>
+      {{ end }}
+    </section>
+
+    <section>
+      <h2>Projects</h2>
+      {{ range $r.projects }}
+      <div class="entry">
+        <div class="entry-header">
+          {{ if .url }}
+          <a class="entry-title" href="{{ .url }}" target="_blank" rel="noopener">{{ .title }}</a>
+          {{ else }}
+          <span class="entry-title">{{ .title }}</span>
+          {{ end }}
+          <span class="entry-date">{{ .date }}</span>
+        </div>
+        <ul>
+          {{ range .bullets }}<li>{{ . }}</li>{{ end }}
+        </ul>
+      </div>
+      {{ end }}
+    </section>
+
+    <section>
+      <h2>Skills</h2>
+      <div class="skills">
+        {{ range $r.skills }}
+        <div>
+          <span class="skill-label">{{ .label }}</span>
+          {{ .items }}
+        </div>
+        {{ end }}
+      </div>
+    </section>
+
+    <section>
+      <h2>Awards</h2>
+      <ul>
+        {{ range $r.awards }}<li>{{ . }}</li>{{ end }}
+      </ul>
+    </section>
+  </main>
+</body>
+</html>
