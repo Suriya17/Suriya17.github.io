@@ -1,5 +1,8 @@
-baseURL = "https://example.com/"
+baseURL = "https://suriya17.github.io/"
 languageCode = "en-us"
 title = "Surya Addanki"
 
-disableKinds = ["taxonomy", "term"]
+disableKinds = ["taxonomy", "term", "RSS", "section"]
+
+[params]
+  description = "Surya Addanki — Software Engineer at Arista Networks working on switch ASIC programming, systems, and distributed systems."

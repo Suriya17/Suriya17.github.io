@@ -1,109 +1,96 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ .Site.LanguageCode }}">
+{{ $r := .Site.Data.resume }}
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>{{ .Site.Title }}</title>
-  <link rel="stylesheet" href="/style.css" />
+  <title>{{ .Site.Title }}{{ with $r.headline }} · {{ . }}{{ end }}</title>
+  <meta name="description" content="{{ .Site.Params.description }}" />
+  <meta name="author" content="{{ $r.name }}" />
+  <link rel="canonical" href="{{ .Permalink }}" />
+  <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#111418" media="(prefers-color-scheme: dark)" />
+  <meta name="color-scheme" content="light dark" />
+
+  <meta property="og:type" content="profile" />
+  <meta property="og:title" content="{{ $r.name }}" />
+  <meta property="og:description" content="{{ .Site.Params.description }}" />
+  <meta property="og:url" content="{{ .Permalink }}" />
+  <meta name="twitter:card" content="summary" />
+
+  <link rel="icon" href="{{ "favicon.svg" | relURL }}" type="image/svg+xml" />
+  {{ $css := resources.Get "style.css" | minify | fingerprint }}
+  <link rel="stylesheet" href="{{ $css.RelPermalink }}" />
+
+  <script type="application/ld+json">
+  {{ dict
+      "@context" "https://schema.org"
+      "@type" "Person"
+      "name" $r.name
+      "jobTitle" $r.headline
+      "email" (printf "mailto:%s" $r.email)
+      "url" .Permalink
+      "sameAs" (slice $r.github)
+    | jsonify | safeJS }}
+  </script>
 </head>
 <body>
-  {{ $r := .Site.Data.resume }}
-  <main>
+  <a class="skip-link" href="#content">Skip to content</a>
+  <main id="content">
     <header>
       <h1>{{ $r.name }}</h1>
-      <div class="contact">
+      {{ with $r.headline }}<p class="headline">{{ . }}{{ with $r.location }} · {{ . }}{{ end }}</p>{{ end }}
+      <nav class="contact" aria-label="Contact">
         <a href="mailto:{{ $r.email }}">{{ $r.email }}</a>
-        <span class="sep">·</span>
-        <a href="{{ $r.github }}" target="_blank" rel="noopener">GitHub</a>
-      </div>
+        <span class="sep" aria-hidden="true">·</span>
+        <a href="{{ $r.github }}" target="_blank" rel="noopener me">GitHub</a>
+      </nav>
     </header>
 
-    <section>
-      <h2>Experience</h2>
-      {{ range $r.experience }}
-      <div class="entry">
-        <div class="entry-header">
-          <span class="entry-title">{{ .title }}</span>
-          <span class="entry-date">{{ .date }}</span>
-        </div>
-        <div class="entry-sub">{{ .location }}</div>
-        <ul>
-          {{ range .bullets }}<li>{{ . }}</li>{{ end }}
-        </ul>
-      </div>
-      {{ end }}
+    <section aria-labelledby="experience">
+      <h2 id="experience">Experience</h2>
+      {{ range $r.experience }}{{ partial "entry.html" . }}{{ end }}
     </section>
 
-    <section>
-      <h2>Education</h2>
-      {{ range $r.education }}
-      <div class="entry">
-        <div class="entry-header">
-          <span class="entry-title">{{ .title }}</span>
-          <span class="entry-date">{{ .date }}</span>
-        </div>
-        <div class="entry-sub">{{ .sub }}</div>
-      </div>
-      {{ end }}
+    <section aria-labelledby="education">
+      <h2 id="education">Education</h2>
+      {{ range $r.education }}{{ partial "entry.html" . }}{{ end }}
     </section>
 
-    <section>
-      <h2>Publications</h2>
-      {{ range $r.publications }}
-      <div class="entry">
-        <div class="entry-header">
-          {{ if .url }}
-          <a class="entry-title" href="{{ .url }}" target="_blank" rel="noopener">{{ .title }}</a>
-          {{ else }}
-          <span class="entry-title">{{ .title }}</span>
-          {{ end }}
-          <span class="entry-date">{{ .date }}</span>
-        </div>
-        <div class="entry-sub">{{ .sub }}</div>
-        <ul>
-          {{ range .bullets }}<li>{{ . }}</li>{{ end }}
-        </ul>
-      </div>
-      {{ end }}
+    <section aria-labelledby="publications">
+      <h2 id="publications">Publications</h2>
+      {{ range $r.publications }}{{ partial "entry.html" . }}{{ end }}
     </section>
 
-    <section>
-      <h2>Projects</h2>
-      {{ range $r.projects }}
-      <div class="entry">
-        <div class="entry-header">
-          {{ if .url }}
-          <a class="entry-title" href="{{ .url }}" target="_blank" rel="noopener">{{ .title }}</a>
-          {{ else }}
-          <span class="entry-title">{{ .title }}</span>
-          {{ end }}
-          <span class="entry-date">{{ .date }}</span>
-        </div>
-        <ul>
-          {{ range .bullets }}<li>{{ . }}</li>{{ end }}
-        </ul>
-      </div>
-      {{ end }}
+    <section aria-labelledby="projects">
+      <h2 id="projects">Projects</h2>
+      {{ range $r.projects }}{{ partial "entry.html" . }}{{ end }}
     </section>
 
-    <section>
-      <h2>Skills</h2>
-      <div class="skills">
+    <section aria-labelledby="skills">
+      <h2 id="skills">Skills</h2>
+      <dl class="skills">
         {{ range $r.skills }}
         <div>
-          <span class="skill-label">{{ .label }}</span>
-          {{ .items }}
+          <dt>{{ .label }}</dt>
+          <dd>
+            {{ range split .items ", " }}<span class="tag">{{ . }}</span>{{ end }}
+          </dd>
         </div>
         {{ end }}
-      </div>
+      </dl>
     </section>
 
-    <section>
-      <h2>Awards</h2>
+    <section aria-labelledby="awards">
+      <h2 id="awards">Awards</h2>
       <ul>
         {{ range $r.awards }}<li>{{ . }}</li>{{ end }}
       </ul>
     </section>
   </main>
+
+  <footer>
+    © {{ now.Year }} {{ $r.name }}
+  </footer>
 </body>
 </html>

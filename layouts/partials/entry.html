@@ -1,0 +1,16 @@
+<article class="entry">
+  <div class="entry-header">
+    {{ if .url }}
+    <h3 class="entry-title"><a href="{{ .url }}" target="_blank" rel="noopener">{{ .title }}<span class="ext" aria-hidden="true">↗</span></a></h3>
+    {{ else }}
+    <h3 class="entry-title">{{ .title }}</h3>
+    {{ end }}
+    {{ with .date }}<span class="entry-date">{{ . }}</span>{{ end }}
+  </div>
+  {{ with (or .sub .location) }}<div class="entry-sub">{{ . }}</div>{{ end }}
+  {{ with .bullets }}
+  <ul>
+    {{ range . }}<li>{{ . }}</li>{{ end }}
+  </ul>
+  {{ end }}
+</article>
